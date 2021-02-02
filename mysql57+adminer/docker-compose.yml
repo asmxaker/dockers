@@ -6,6 +6,7 @@ services:
     container_name: "mysql57_db"
     restart: always
     volumes:
+      - ./dump:/docker-entrypoint-initdb.d
       - ./docker/data:/var/lib/mysql
     env_file:
       - database.env
