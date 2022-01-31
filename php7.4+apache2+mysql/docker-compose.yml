@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  web:
+    image: php:7.4-fpm-alpine
+    build: ./docker/php_apache/
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public_html/:/var/www/html/
+  mysql:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - ./dump:/docker-entrypoint-initdb.d
+      - ./docker/data:/var/lib/mysql
+    env_file:
+      - database.env
+    ports:
+      - 3307:3306
